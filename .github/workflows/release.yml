@@ -17,8 +17,9 @@ jobs:
       - name: Create directory
         run: |
           mkdir -p Thumbnails.pak
-          cp launch.sh Thumbnails.pak/
           cp -r res/ Thumbnails.pak/
+          cp launch.sh Thumbnails.pak/
+          cp README.md Thumbnails.pak/
 
       - name: Create zip
         run: |
