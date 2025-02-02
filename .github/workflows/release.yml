@@ -1,0 +1,33 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create directory
+        run: |
+          mkdir -p Thumbnails.pak
+          cp launch.sh Thumbnails.pak/
+          cp -r res/ Thumbnails.pak/
+
+      - name: Create zip
+        run: |
+          zip -r Thumbnails.zip Thumbnails.pak/
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: Thumbnails.zip
+          draft: false
+          prerelease: false
+          generate_release_notes: true
