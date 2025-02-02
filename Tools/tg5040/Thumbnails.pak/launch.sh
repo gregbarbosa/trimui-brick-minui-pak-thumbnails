@@ -3,11 +3,35 @@
 # Define base paths
 ROMS_DIR="/mnt/SDCARD/ROMS"
 SAVE_STATE_BASE="/mnt/SDCARD/.userdata/shared/.minui"
+RES_DIR="$(dirname "$0")/res"
 FLAG_FILE="$(dirname "$0")/savestate_flag"
+SYSTEM_BIN="/mnt/SDCARD/.system/tg5040/bin/"
 
 # GraphicsMagick setup
 GM="/mnt/SDCARD/System/bin/gm"
 export LD_LIBRARY_PATH="/mnt/SDCARD/System/lib:$LD_LIBRARY_PATH"
+
+# Images
+IMG_SWITCHING_SAVE_STATE="$RES_DIR/switching-save-state.png"
+IMG_SWITCHING_BOX="$RES_DIR/switching-box.png"
+IMG_DONE="$RES_DIR/done.png"
+IMG_BACKING_UP="$RES_DIR/backingup.png"
+IMG_RESTORING="$RES_DIR/restoring.png"
+IMG_PROCESSING="$RES_DIR/processing.png"
+
+# Show images
+show_image() {
+    $SYSTEM_BIN/show.elf "$1" 0.5
+}
+
+# Show initial status
+if [ -f "$FLAG_FILE" ]; then
+    show_image "$IMG_SWITCHING_BOX"
+    show_image "$IMG_RESTORING"
+else
+    show_image "$IMG_SWITCHING_SAVE_STATE"
+    show_image "$IMG_BACKING_UP"
+fi
 
 # Process each system
 for save_state_dir in "$SAVE_STATE_BASE"/*/; do
@@ -78,3 +102,5 @@ else
     touch "$FLAG_FILE"
     echo "Switched to save state thumbnail mode"
 fi
+
+show_image "$IMG_DONE"
