@@ -14,6 +14,9 @@ A MinUI tool pak for TrimUI Brick that allows switching between traditional box 
 
 ## Installation
 
+> [!WARNING]
+> Before modifying your SD card, make sure you have a recent backup.
+
 1. Download the latest `Thumbnails.zip` release from GitHub
 2. Extract the .zip file
 3. Move the `Thumbnails.pak` folder into your Brick's SD card at `/mnt/SDCARD/Tools/tg5040` folder
